@@ -28,6 +28,16 @@ app.all('*', (req, res, next) => {
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 	next();
 });
+
+app.use(
+	cors({
+		origin: function(origin, callback) {
+			if (!origin) return callback(null, true);
+			return callback(null, true);
+		}
+	})
+);
+
 app.use(responseTime());
 app.use(cookieParser(settings.cookieSecretKey));
 app.use(bodyParser.urlencoded({ extended: true }));
