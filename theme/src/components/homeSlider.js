@@ -30,14 +30,15 @@ const HomeSlider = ({ images }) => {
 		}));
 
 		return (
-			<section className="section" style={{ padding: 0 }}>
+			<section className="section" style={{ paddingTop: '20px' }}>
 				<div className="container">
 					<div className="home-slider">
 						<ImageGallery
 							items={items}
 							lazyLoad
+							autoPlay
 							showThumbnails={false}
-							slideInterval={2000}
+							slideInterval={5000}
 							showNav={themeSettings.home_gallery_shownav === true}
 							showBullets={images.length > 1}
 							showPlayButton={false}

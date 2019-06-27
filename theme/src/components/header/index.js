@@ -133,7 +133,7 @@ export default class Header extends React.Component {
 				>
 					<div className="container">
 						<div className="columns is-gapless is-mobile header-container">
-							<div className="column is-4">
+							<div className="column is-4 is-hidden-tablet">
 								{!showBackButton && (
 									<BurgerButton
 										onClick={this.menuToggle}
@@ -143,7 +143,7 @@ export default class Header extends React.Component {
 								{showBackButton && <BackButton onClick={this.handleGoBack} />}
 							</div>
 
-							<div className="column is-4 has-text-centered">
+							<div className="column has-text-centered">
 								<Logo src={settings.logo} onClick={this.closeAll} alt="logo" />
 							</div>
 							<div className="column is-4 has-text-right header-block-right">
@@ -183,14 +183,14 @@ export default class Header extends React.Component {
 								</div>
 							</div>
 						</div>
-
+						{/*
 						<div className="primary-nav is-hidden-mobile">
 							<HeadMenu
 								categories={categories}
 								location={location}
 								isMobile={false}
 							/>
-						</div>
+						</div> */}
 					</div>
 				</header>
 
