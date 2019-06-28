@@ -132,7 +132,7 @@ export default class Header extends React.Component {
 					className={this.state.mobileSearchIsActive ? 'search-active' : ''}
 				>
 					<div className="container">
-						<div className="columns is-gapless is-mobile header-container">
+						<div className="columns is-gapless is-mobile ">
 							<div className="column is-4 is-hidden-tablet">
 								{!showBackButton && (
 									<BurgerButton
@@ -145,6 +145,13 @@ export default class Header extends React.Component {
 
 							<div className="column has-text-centered">
 								<Logo src={settings.logo} onClick={this.closeAll} alt="logo" />
+							</div>
+							<div className="column primary-nav is-hidden-mobile is-flex is-vertical-center">
+								<HeadMenu
+									categories={categories}
+									location={location}
+									isMobile={false}
+								/>
 							</div>
 							<div className="column is-4 has-text-right header-block-right">
 								<span
@@ -183,14 +190,6 @@ export default class Header extends React.Component {
 								</div>
 							</div>
 						</div>
-						{/*
-						<div className="primary-nav is-hidden-mobile">
-							<HeadMenu
-								categories={categories}
-								location={location}
-								isMobile={false}
-							/>
-						</div> */}
 					</div>
 				</header>
 

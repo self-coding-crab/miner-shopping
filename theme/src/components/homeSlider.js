@@ -30,25 +30,23 @@ const HomeSlider = ({ images }) => {
 		}));
 
 		return (
-			<section className="section" style={{ paddingTop: '20px' }}>
-				<div className="container">
-					<div className="home-slider">
-						<ImageGallery
-							items={items}
-							lazyLoad
-							autoPlay
-							showThumbnails={false}
-							slideInterval={5000}
-							showNav={themeSettings.home_gallery_shownav === true}
-							showBullets={images.length > 1}
-							showPlayButton={false}
-							showFullscreenButton={false}
-							slideOnThumbnailHover={false}
-							renderItem={renderItem}
-						/>
-					</div>
+			<div className="container">
+				<div className="home-slider">
+					<ImageGallery
+						items={items}
+						lazyLoad
+						autoPlay
+						showThumbnails={false}
+						slideInterval={5000}
+						showNav={themeSettings.home_gallery_shownav === true}
+						showBullets={images.length > 1}
+						showPlayButton={false}
+						showFullscreenButton={false}
+						slideOnThumbnailHover={false}
+						renderItem={renderItem}
+					/>
 				</div>
-			</section>
+			</div>
 		);
 	}
 	return null;

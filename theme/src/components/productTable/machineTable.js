@@ -59,7 +59,7 @@ const columns = [
 ];
 class MyComponent extends Component {
 	render() {
-		return <DataTable title="Arnold Movies" columns={columns} data={data} />;
+		return <DataTable title="" columns={columns} data={data} />;
 	}
 }
 
