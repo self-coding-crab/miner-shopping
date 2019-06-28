@@ -13,31 +13,26 @@ import dashboardWebSocket from './lib/dashboardWebSocket';
 import ajaxRouter from './ajaxRouter';
 import apiRouter from './apiRouter';
 const app = express();
-// app.use(cors());
 security.applyMiddleware(app);
 app.set('trust proxy', 1);
 app.use(helmet());
-app.all('*', (req, res, next) => {
-	// CORS headers
-	res.header('Access-Control-Allow-Origin', '*');
+// Enable CORS
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', req.headers.origin);
 	res.header(
 		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept'
+		'"Origin, X-Requested-With, Content-Type, Accept, Authorization'
 	);
-
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-	next();
+	res.header('Access-Control-Allow-Credentials', 'true');
+	res.header('Access-Control-Max-Age', '1000000000');
+	// intercept OPTIONS method
+	if ('OPTIONS' == req.method) {
+		res.send(200);
+	} else {
+		next();
+	}
 });
-
-app.use(
-	cors({
-		origin: function(origin, callback) {
-			if (!origin) return callback(null, true);
-			return callback(null, true);
-		}
-	})
-);
-
 app.use(responseTime());
 app.use(cookieParser(settings.cookieSecretKey));
 app.use(bodyParser.urlencoded({ extended: true }));
