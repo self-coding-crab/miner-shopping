@@ -4,7 +4,6 @@ import { themeSettings } from '../lib/settings';
 import MetaTags from '../components/metaTags';
 import CustomProducts from '../components/products/custom';
 import HomeSlider from '../components/homeSlider';
-import ProductsTblPage from '../components/productTable/machineTable';
 
 const IndexContainer = props => {
 	const {
@@ -23,7 +22,6 @@ const IndexContainer = props => {
 			/>
 
 			<HomeSlider images={themeSettings.home_slider} />
-			<ProductsTblPage />
 
 			{pageDetails.content &&
 				pageDetails.content.length > 10 && (

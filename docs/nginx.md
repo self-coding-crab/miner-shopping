@@ -1,6 +1,4 @@
 # Nginx config file
-
-```nginx
 server {
         # Dynamic image resizing server
         listen 127.0.0.1:8888;
@@ -18,8 +16,11 @@ server {
 proxy_cache_path /tmp/nginx-images-cache2/ levels=1:2 keys_zone=images:10m inactive=30d max_size=5g use_temp_path=off;
 
 server {
-        listen 80 default_server;
-        server_name _;
+				listen 443 http2 ssl;
+        listen [::]:443 http2 ssl;
+        server_name shop.cryptomining.tools;
+        ssl_certificate /etc/nginx/sites-enabled/key.crt;
+        ssl_certificate_key /etc/nginx/sites-enabled/key.pem;
 
         gzip              on;
         gzip_comp_level   2;
@@ -90,4 +91,3 @@ server {
                 proxy_set_header X-Forwarded-Proto $scheme;
         }
 }
-```

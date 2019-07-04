@@ -8,6 +8,8 @@ import { db } from '../../lib/mongo';
 import utils from '../../lib/utils';
 import parse from '../../lib/parse';
 import SettingsService from '../settings/settings';
+import Axios from 'axios';
+import download from 'download';
 
 class ProductImagesService {
 	constructor() {}
@@ -83,13 +85,45 @@ class ProductImagesService {
 			})
 			.then(() => true);
 	}
+	async addImageFromUrl(url, productId) {
+		if (!ObjectID.isValid(productId)) {
+			res.status(500).send(this.getErrorMessage('Invalid identifier'));
+			return;
+		}
+		const productObjectID = new ObjectID(productId);
+		const uploadDir = path.resolve(
+			settings.productsUploadPath + '/' + productId
+		);
+		fse.ensureDirSync(uploadDir);
 
+		let uploadedFiles = [];
+		const filename = 'sample';
+		download(url).pipe(fse.createWriteStream(uploadDir + '/' + filename));
+		const imageData = {
+			id: new ObjectID(),
+			alt: '',
+			position: 99,
+			filename: filename
+		};
+
+		await db.collection('products').updateOne(
+			{
+				_id: productObjectID
+			},
+			{
+				$push: { images: imageData }
+			}
+		);
+	}
 	async addImage(req, res) {
 		const productId = req.params.productId;
 		if (!ObjectID.isValid(productId)) {
 			res.status(500).send(this.getErrorMessage('Invalid identifier'));
 			return;
 		}
+		const imageData = await Axios.get(
+			'https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_450,w_750/v1528060826/qqdoaiospe8cy7l60xrs.png'
+		);
 
 		let uploadedFiles = [];
 		const productObjectID = new ObjectID(productId);
@@ -100,7 +134,7 @@ class ProductImagesService {
 
 		let form = new formidable.IncomingForm();
 		form.uploadDir = uploadDir;
-
+		form.file = imageData;
 		form
 			.on('fileBegin', (name, file) => {
 				// Emitted whenever a field / value pair has been received.
