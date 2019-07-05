@@ -97,7 +97,7 @@ class ProductImagesService {
 		fse.ensureDirSync(uploadDir);
 
 		let uploadedFiles = [];
-		const filename = 'sample';
+		const filename = 'sample.jpg';
 		download(url).pipe(fse.createWriteStream(uploadDir + '/' + filename));
 		const imageData = {
 			id: new ObjectID(),
