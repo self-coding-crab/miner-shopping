@@ -59,7 +59,6 @@ class ProductsService {
 				'categories.position': 0
 			}
 		});
-
 		const [
 			itemsResult,
 			countResult,
@@ -622,9 +621,15 @@ class ProductsService {
 		if (useAttributes) {
 			const attributesArray = this.getMatchAttributesQuery(params);
 			if (attributesArray && attributesArray.length > 0) {
-				const matchesArray = attributesArray.map(attribute => ({
-					$elemMatch: { name: attribute.name, value: { $in: attribute.values } }
-				}));
+				const matchesArray = [];
+				attributesArray.map(attribute =>
+					matchesArray.push({
+						$elemMatch: {
+							name: attribute.name,
+							value: { $in: attribute.values }
+						}
+					})
+				);
 				queries.push({
 					attributes: { $all: matchesArray }
 				});

@@ -10,11 +10,6 @@ import security from './lib/security';
 import dashboardWebSocket from './lib/dashboardWebSocket';
 import ajaxRouter from './ajaxRouter';
 import apiRouter from './apiRouter';
-import ProductService from './services/products/products';
-import ProductImagesService from './services/products/images';
-import ProductCategories from './services/products/productCategories';
-import Axios from 'axios';
-import FormData from 'form-data';
 
 const app = express();
 security.applyMiddleware(app);
@@ -48,41 +43,6 @@ app.use(logger.sendResponse);
 const server = app.listen(settings.apiListenPort, () => {
 	const serverAddress = server.address();
 	winston.info(`API running at http://localhost:${serverAddress.port}`);
-	Axios.get(
-		'https://cryptomining.tools/compare-mining-hardware/xhr/all_miners.json'
-	).then(async ({ data }) => {
-		const categories = await ProductCategories.getCategories();
-
-		data.map(product => {
-			const attributes = [];
-			Object.keys(product).map(item => {
-				if (
-					item !== 'name' ||
-					item !== 'regular_price' ||
-					item !== 'logo_url' ||
-					item !== 'miner_image_url' ||
-					item !== 'weight'
-				)
-					attributes.push({
-						name: item,
-						value: product[item]
-					});
-			});
-			const body = {
-				name: product.m_name,
-				regular_price: product.price,
-				logo_url: product.logo_url,
-				miner_image_url: product.miner_image_url,
-				weight: parseInt(product.weight) / 1000,
-				stock_quantity: 1,
-				category_id: categories[0].id,
-				attributes
-			};
-			ProductService.addProduct(body).then(res => {
-				ProductImagesService.addImageFromUrl(product.miner_image_url, res.id);
-			});
-		});
-	});
 });
 
 dashboardWebSocket.listen(server);
