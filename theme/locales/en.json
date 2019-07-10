@@ -72,5 +72,14 @@
   "edit": "Edit",
   "next": "Next",
   "customerDetails": "Customer Details",
-  "payment": "Payment"
+  "payment": "Payment",
+  "products_details_id": "ID",
+  "products_details_brand": "Manufacturer",
+  "products_details_m_name": "Miner Name",
+  "products_details_hashrate": "Hashrate",
+  "products_details_power": "Power (watts)",
+  "products_details_release_date": "Release Date",
+  "products_details_algo": "Supported Algorithms",
+  "products_details_size": "Size",
+  "products_details_weight": "Weight"
 }
