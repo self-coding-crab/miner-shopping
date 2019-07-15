@@ -156,14 +156,6 @@ export default class ProductDetails extends React.Component {
 												isAllOptionsSelected={isAllOptionsSelected}
 											/>
 										</div>
-										<div id="cryptomining-mini-chart" />
-										<script
-											id="cryptomining-tools-mini-chart"
-											src="https://cryptomining.tools/compare-mining-hardware/embed.js"
-											data-id="100"
-											data-price="400"
-											data-widgetid="cryptomining-mini-chart"
-										/>
 									</div>
 								</div>
 							</div>

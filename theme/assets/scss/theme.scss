@@ -15,7 +15,7 @@ $breadcrumb-item-separator-color: #7a7a7a;
 @import "~rc-slider/assets/index.css";
 $ig-blue: #636363 !default;
 @import "~react-image-gallery/styles/scss/image-gallery-no-icon.scss";
-
+@import "~react-table/react-table.css";
 
 .image-gallery-bullets .image-gallery-bullets-container {
   background-color: rgba(0,0,0,0.2);
@@ -48,7 +48,7 @@ $ig-blue: #636363 !default;
 
 body {
   margin-top: 3.25rem;
-  transition: margin 200ms ease-in-out;
+	transition: margin 200ms ease-in-out;
 }
 
 a, input, button {

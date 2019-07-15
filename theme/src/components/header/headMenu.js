@@ -53,7 +53,7 @@ class HeadMenuItem extends React.Component {
 				onMouseLeave={this.onMouseLeaveHandler}
 				onMouseUp={this.onMouseLeaveHandler}
 				className={
-					(level === 2 ? 'column is-3' : '') +
+					(level === 2 ? 'column' : '') +
 					(this.state.isActive ? ' is-active' : '') +
 					(hasItems ? ' has-items' : '')
 				}
