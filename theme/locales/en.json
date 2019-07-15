@@ -81,5 +81,6 @@
   "products_details_release_date": "Release Date",
   "products_details_algo": "Supported Algorithms",
   "products_details_size": "Size",
-  "products_details_weight": "Weight"
+  "products_details_weight": "Weight",
+  "products_details_process_node": "Process Node"
 }
