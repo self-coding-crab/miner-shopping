@@ -238,12 +238,33 @@ export default class ProductDetails extends React.Component {
 											</div>
 											<div className="result-field mt-4">
 												<strong>
-													{`Your Gross Income Per Day might be: ${gross_income}.`}{' '}
+													{`Your Gross Income Per Day might be: ${new Intl.NumberFormat(
+														'us-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(gross_income)}.`}{' '}
 													<br />
-													{`You could earn ${income_per_kwh} per kWh with this miner.`}{' '}
+													{`You could earn ${new Intl.NumberFormat('us-US', {
+														style: 'currency',
+														currency: 'USD'
+													}).format(
+														income_per_kwh
+													)} per kWh with this miner.`}{' '}
 													<br />
-													{`If you bought this miner for ${hardware_cost}, and run it for ${asic} months, it will be as though the miner cost you ${ecost} per kwh that it runs.`}
-													{`The Operation Profit for this miner might be around ${operation_profit} for every kWh that the miner is running.`}
+													{`If you bought this miner for ${new Intl.NumberFormat(
+														'us-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(
+														hardware_cost
+													)}, and run it for ${asic} months, it will be as though the miner cost you ${new Intl.NumberFormat(
+														'us-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(ecost)} per kwh that it runs.`}
+													{`The Operation Profit for this miner might be around ${new Intl.NumberFormat(
+														'us-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(
+														operation_profit
+													)} for every kWh that the miner is running.`}
 												</strong>
 											</div>
 										</div>
