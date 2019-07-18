@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import * as helper from '../../lib/helper';
+import TextField from 'material-ui/TextField';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { themeSettings, text } from '../../lib/settings';
-import Disqus from '../comments/disqus';
 import ViewedProducts from '../products/viewed';
 import Breadcrumbs from './breadcrumbs';
 import DiscountCountdown from './discountCountdown';
@@ -14,7 +16,11 @@ import Price from './price';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
-
+import Axios from 'axios';
+const muiTheme = getMuiTheme({
+	fontFamily: 'Roboto, sans-serif',
+	appBar: {}
+});
 const Description = ({ description }) => (
 	<div
 		className="product-content"
@@ -29,7 +35,16 @@ export default class ProductDetails extends React.Component {
 			selectedOptions: {},
 			selectedVariant: null,
 			isAllOptionsSelected: false,
-			quantity: 1
+			quantity: 1,
+			ecost: 0.065,
+			asic: 9,
+			gross_income: 0,
+			income_per_kwh: 0.1,
+			hardware_cost: 0.02,
+			month: 12,
+			operation_profit: 0.01,
+			machine_id: null,
+			price: 0
 		};
 
 		this.onOptionChange = this.onOptionChange.bind(this);
@@ -40,6 +55,41 @@ export default class ProductDetails extends React.Component {
 		this.checkSelectedOptions = this.checkSelectedOptions.bind(this);
 	}
 
+	componentDidMount() {
+		const { product } = this.props;
+		if (product) {
+			const value = product.attributes.filter(item => item.name === 'id');
+			console.log(product);
+			this.setState({
+				machine_id: value[0].value,
+				price: product.regular_price
+			});
+			// this.getAdditionalInfo(value[0].value);
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.machine_id !== this.state.machine_id) {
+			this.getAdditionalInfo(this.state.machine_id); //example calling redux action
+		}
+	}
+
+	getAdditionalInfo = () => {
+		const { ecost, asic, price, machine_id } = this.state;
+		Axios.get(
+			`https://cryptomining.tools/compare-mining-hardware/xhr/miner_calc.json?id=${machine_id}&ecost=${ecost}&asic=${asic}&price=${price}`
+		).then(res => {
+			const { data } = res;
+			if (data.success) {
+				this.setState({
+					gross_income: data.data.gross_income,
+					income_per_kwh: data.data.income_per_kwh,
+					hardware_cost: data.data.hardware_cost,
+					operation_profit: data.data.operation_profit
+				});
+			}
+		});
+	};
 	onOptionChange(optionId, valueId) {
 		let { selectedOptions } = this.state;
 
@@ -99,10 +149,13 @@ export default class ProductDetails extends React.Component {
 			Object.keys(selectedOptions).length === product.options.length;
 		this.setState({ isAllOptionsSelected: allOptionsSelected });
 	}
-
+	handleParamChange = (param, value) => {
+		this.setState({ [param]: value });
+		this.getAdditionalInfo();
+	};
 	render() {
 		const { product, settings, categories } = this.props;
-		const { selectedVariant, isAllOptionsSelected } = this.state;
+		const { selectedVariant, isAllOptionsSelected, asic, ecost } = this.state;
 		const maxQuantity =
 			product.stock_status === 'discontinued'
 				? 0
@@ -113,8 +166,14 @@ export default class ProductDetails extends React.Component {
 						: product.stock_quantity;
 
 		if (product) {
+			const {
+				gross_income,
+				income_per_kwh,
+				hardware_cost,
+				operation_profit
+			} = this.state;
 			return (
-				<Fragment>
+				<MuiThemeProvider muiTheme={muiTheme}>
 					<section className="section section-product">
 						<div className="container">
 							<div className="columns">
@@ -156,6 +215,38 @@ export default class ProductDetails extends React.Component {
 												isAllOptionsSelected={isAllOptionsSelected}
 											/>
 										</div>
+										<div className="additional-info">
+											<div className="filter-field">
+												<TextField
+													type="text"
+													fullWidth={true}
+													value={this.state.ecost}
+													onChange={e =>
+														this.handleParamChange('ecost', e.target.value)
+													}
+													floatingLabelText="Electricity Cost"
+												/>
+												<TextField
+													type="text"
+													fullWidth={true}
+													value={this.state.asic}
+													onChange={e =>
+														this.handleParamChange('asic', e.target.value)
+													}
+													floatingLabelText="ASIC Useful Life"
+												/>
+											</div>
+											<div className="result-field mt-4">
+												<strong>
+													{`Your Gross Income Per Day might be: ${gross_income}.`}{' '}
+													<br />
+													{`You could earn ${income_per_kwh} per kWh with this miner.`}{' '}
+													<br />
+													{`If you bought this miner for ${hardware_cost}, and run it for ${asic} months, it will be as though the miner cost you ${ecost} per kwh that it runs.`}
+													{`The Operation Profit for this miner might be around ${operation_profit} for every kWh that the miner is running.`}
+												</strong>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -194,19 +285,19 @@ export default class ProductDetails extends React.Component {
 					)}
 
 					{/*		{themeSettings.disqus_shortname &&
-						themeSettings.disqus_shortname !== '' && (
-							<section className="section">
-								<div className="container">
-									<Disqus
-										shortname={themeSettings.disqus_shortname}
-										identifier={product.id}
-										title={product.name}
-										url={product.url}
-									/>
-								</div>
-							</section>
-						)} */}
-				</Fragment>
+					themeSettings.disqus_shortname !== '' && (
+						<section className="section">
+							<div className="container">
+								<Disqus
+									shortname={themeSettings.disqus_shortname}
+									identifier={product.id}
+									title={product.name}
+									url={product.url}
+								/>
+							</div>
+						</section>
+					)} */}
+				</MuiThemeProvider>
 			);
 		} else {
 			return null;

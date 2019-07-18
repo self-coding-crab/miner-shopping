@@ -65,6 +65,7 @@ const runCronJob = async () => {
 					miner_image_url: product.miner_image_url,
 					weight: parseInt(product.weight) / 1000,
 					stock_quantity: 1,
+					regular_price: 1000,
 					category_id: categories[0].id,
 					attributes
 				};
