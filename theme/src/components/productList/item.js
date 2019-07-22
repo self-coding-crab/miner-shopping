@@ -4,6 +4,8 @@ import { themeSettings, text } from '../../lib/settings';
 import ItemTags from './itemTags';
 import ItemImage from './itemImage';
 import ItemPrice from './itemPrice';
+import DefaultButton from '../button';
+import ReactStars from 'react-stars';
 
 const Item = ({
 	product,
@@ -35,11 +37,7 @@ const Item = ({
 			: 200;
 
 	return (
-		<div
-			className={`column is-${columnSizeOnMobile}-mobile is-${columnSizeOnTablet}-tablet is-${columnSizeOnDesktop}-desktop is-${columnSizeOnWidescreen}-widescreen is-${columnSizeOnFullhd}-fullhd ${
-				product.stock_status
-			}`}
-		>
+		<div className="product-item">
 			<NavLink to={product.path}>
 				<figure className="image" style={{ height: imageHeight }}>
 					<ItemTags tags={product.tags} />
@@ -50,8 +48,21 @@ const Item = ({
 					/>
 				</figure>
 				<div className="content product-caption">
+					<ReactStars
+						className="product-stars"
+						count={5}
+						value={4}
+						edit={false}
+						size={24}
+						color2={'#ffd700'}
+					/>
 					<div className="product-name">{product.name}</div>
 					<ItemPrice product={product} settings={settings} />
+					<div className="separator" />
+					<div className="product-shipping">Free Shipping in 7 days</div>
+					<DefaultButton width="100%" height="40px">
+						ADD TO CART
+					</DefaultButton>
 				</div>
 			</NavLink>
 		</div>

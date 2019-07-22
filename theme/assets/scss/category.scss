@@ -161,16 +161,40 @@
 
 .products .product-caption {
   text-align: center;
-  margin-top: 0.25rem;
+	margin-top: 0.25rem;
+	height: 100%;
 }
 
 .products .product-name {
   color: #333;
-  font-size: 0.9rem;
+	font-size: 0.9rem;
+	text-align: center;
 }
 
 .products .product-price {
-  color: #636363;
+	color: #636363;
+	text-align: center;
+	margin: 10px;
+}
+
+.products .separator {
+	margin-top: 20px;
+	border: 0.5px solid #778898
+}
+
+.products .product-shipping {
+	font-size: 15px;
+	color: #778898;
+	font-family: "Poppins";
+	font-weight: 400;
+	text-align: center;
+	margin: 20px 0px;
+}
+
+.products .product-stars {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .products .product-old-price {

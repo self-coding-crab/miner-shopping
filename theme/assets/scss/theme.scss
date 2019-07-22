@@ -49,6 +49,7 @@ $ig-blue: #636363 !default;
 body {
   margin-top: 3.25rem;
 	transition: margin 200ms ease-in-out;
+	font-family: "Poppins";
 }
 
 a, input, button {
@@ -82,7 +83,30 @@ hr.separator {
 }
 
 .title {
-  font-weight: 300;
+	font-size: 28px;
+	line-height: 28px;
+	color: #3a4044;
+	font-family: "Poppins";
+	font-weight: 600;
+}
+
+.about-us {
+	margin: 50px -20px;
+	.header {
+		font-size: 28px;
+		line-height: 28px;
+		color: #3a4044;
+		font-family: "Poppins";
+		font-weight: 600;
+		margin-bottom: 30px;
+	}
+	.description {
+		font-size: 16px;
+		line-height: 28px;
+		color: #3a4044;
+		font-family: "Lato";
+		font-weight: 400;
+	}
 }
 
 .shipping-address2 {}
@@ -101,6 +125,24 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.slick-prev {
+	left: -40px;
+}
+
+.slick-next {
+	right: -40px;
+}
+
+.slick-next, .slick-prev {
+	width: 40px;
+	height: 40px;
+}
+
+.slick-next:before, .slick-prev:before {
+	color: rgba(0,0,0,0.16);
+	opacity: 1;
+	font-size: 37px;
+}
 /*
 MOBILE
 */

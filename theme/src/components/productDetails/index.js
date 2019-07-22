@@ -57,7 +57,8 @@ export default class ProductDetails extends React.Component {
 
 	componentDidMount() {
 		const { product } = this.props;
-		if (product) {
+		console.log(product);
+		if (product.length > 0) {
 			const value = product.attributes.filter(item => item.name === 'id');
 			console.log(product);
 			this.setState({

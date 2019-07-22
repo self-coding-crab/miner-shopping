@@ -1,3 +1,33 @@
+.home-slider-container {
+	display: flex;
+	padding-top: 20px;
+	.product-explanation {
+		flex : 1;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+
+		h1 {
+			font-size: 40px;
+			line-height: 60px;
+			color: #171717;
+			font-family: "Poppins";
+			font-weight: 700;
+		}
+		p {
+			width: 460px;
+			font-size: 16px;
+			line-height: 28px;
+			color: #778898;
+			font-family: "Lato", sans-serif;
+			font-weight: 400;
+			padding-bottom: 20px;
+		}
+	}
+	.home-slider {
+		flex: 1;
+	}
+}
 .caption {
   position: absolute;
   top: 0;

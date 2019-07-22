@@ -7,7 +7,8 @@ export default class SearchBox extends React.Component {
 		super(props);
 		this.state = {
 			value: props.value,
-			hasFocus: false
+			buttonState: false,
+			hasInputFocus: false
 		};
 	}
 
@@ -36,16 +37,17 @@ export default class SearchBox extends React.Component {
 		this.props.onSearch('');
 	};
 
-	handleFocus = () => {
-		this.setState({ hasFocus: true });
+	handleButtonFocus = () => {
+		const { hasButtonFocus } = this.state;
+		this.productInput.focus();
+		this.setState({ hasButtonFocus: !hasButtonFocus });
 	};
 
 	handleBlur = () => {
-		this.setState({ hasFocus: false });
+		this.setState({ hasInputFocus: false, hasButtonFocus: false, value: '' });
 	};
 
 	render() {
-		const { hasFocus } = this.state;
 		const placeholderText =
 			themeSettings.search_placeholder &&
 			themeSettings.search_placeholder.length > 0
@@ -53,37 +55,29 @@ export default class SearchBox extends React.Component {
 				: text.searchPlaceholder;
 
 		return (
-			<div
-				className={
-					'search-box ' + this.props.className + (hasFocus ? ' has-focus' : '')
-				}
-			>
-				<input
-					className="search-input"
-					type="text"
-					placeholder={placeholderText}
-					value={this.state.value}
-					onChange={this.handleChange}
-					onKeyPress={this.handleKeyPress}
-					onKeyDown={this.handleKeyDown}
-					onFocus={this.handleFocus}
-					onBlur={this.handleBlur}
-				/>
-				<img
-					className="search-icon-search"
-					src="/assets/images/search.svg"
-					alt={text.search}
-					title={text.search}
-					onClick={this.handleSearch}
-				/>
-				{this.state.value &&
-					this.state.value !== '' && (
-						<img
-							className="search-icon-clear"
-							src="/assets/images/close.svg"
-							onClick={this.handleClear}
-						/>
-					)}
+			<div className="search-content">
+				<fieldset>
+					<input
+						ref={input => {
+							this.productInput = input;
+						}}
+						className="search-input"
+						type="text"
+						id="search-bar"
+						placeholder={placeholderText}
+						value={this.state.value}
+						onChange={this.handleChange}
+						onKeyPress={this.handleKeyPress}
+						onKeyDown={this.handleKeyDown}
+						// onFocus={this.handleFocus}
+						// onBlur={this.handleBlur}
+					/>
+					<div className="search-icon-container">
+						<div id="search-icon" onClick={this.handleButtonFocus}>
+							<i className="fa fa-search" />
+						</div>
+					</div>
+				</fieldset>
 			</div>
 		);
 	}

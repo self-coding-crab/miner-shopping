@@ -103,28 +103,22 @@ export default class Footer extends React.PureComponent {
 				<footer>
 					<div className="container">
 						<div className="content">
-							<div className="columns is-gapless">
+							<div className="columns is-gapless footer-container">
 								<div className="column is-5">
 									<div className="mobile-padding">
 										<div className="footer-logo">
 											<img src={footerLogoUrl} alt="logo" />
 										</div>
-										<p>
-											<small>{themeSettings.footer_about}</small>
-										</p>
 										<Contacts contacts={themeSettings.footer_contacts} />
-										<SocialIcons icons={themeSettings.footer_social} />
+										<div className="footer-menu">
+											<a href="/copyright">Copyright</a>
+											<a href="/privacy-policy">Privacy Policy</a>
+											<a href="/term">Terms of Use</a>
+										</div>
 									</div>
 								</div>
 								<div className="column is-1 is-hidden-mobile" />
-								<FooterMenu
-									title={themeSettings.footer_menu_1_title}
-									items={themeSettings.footer_menu_1_items}
-								/>
-								<FooterMenu
-									title={themeSettings.footer_menu_2_title}
-									items={themeSettings.footer_menu_2_items}
-								/>
+								<SocialIcons icons={themeSettings.footer_social} />
 							</div>
 						</div>
 					</div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
 import { themeSettings } from '../lib/settings';
-
+import DefaultButton from './button';
 const renderItem = item => (
 	<div className="image-gallery-image">
 		<NavLink to={item.path || ''}>
@@ -30,7 +30,15 @@ const HomeSlider = ({ images }) => {
 		}));
 
 		return (
-			<div className="container">
+			<div className="container home-slider-container">
+				<div className="product-explanation">
+					<h1>Antminer D3</h1>
+					<p>
+						Liquam vestibulum lectus id diam accumsan accumsan. Aliquam finibus
+						justo metus. Nunc feugiat pellentesque posuere.
+					</p>
+					<DefaultButton width="160px">SHOP</DefaultButton>
+				</div>
 				<div className="home-slider">
 					<ImageGallery
 						items={items}
