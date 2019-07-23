@@ -10,7 +10,9 @@ header {
 	background-image: linear-gradient(180deg, #3d8ef6 0%, #2479e7 100%);
   z-index: 1003;
   background-color: $header_bg;
-  border-bottom: $header_border;
+	border-bottom: $header_border;
+	display: flex;
+	align-items: center;
 }
 
 .logo-image img {
