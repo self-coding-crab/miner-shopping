@@ -76,7 +76,6 @@ const CategoryContainer = props => {
 			loadingMoreProducts
 		}
 	} = props;
-
 	const filterAttributesSummary = getFilterAttributesSummary(productFilter);
 	const filterPriceSummary = getFilterPriceSummary(productFilter, settings);
 
@@ -106,7 +105,7 @@ const CategoryContainer = props => {
 			<CategoryHero categoryDetails={categoryDetails} categories={categories} />
 
 			<section className="section section-category">
-				<div className="container">
+				<div className="">
 					<div className="columns">
 						{showFilter === true && (
 							<div className="column is-one-quarter left-sidebar">
@@ -133,6 +132,7 @@ const CategoryContainer = props => {
 								hasMore={productsHasMore}
 								loadingProducts={loadingProducts}
 								loadingMoreProducts={loadingMoreProducts}
+								categoryView
 							/>
 						</div>
 					</div>

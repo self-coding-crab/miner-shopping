@@ -37,7 +37,6 @@ export default class ProductFilter extends React.Component {
 			productsMaxPrice,
 			productsAttributes
 		} = this.props.state;
-
 		return (
 			<div>
 				<div className="is-hidden-tablet">

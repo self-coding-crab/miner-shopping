@@ -20,11 +20,11 @@ const ProductList = ({
 	columnCountOnTablet,
 	columnCountOnDesktop,
 	columnCountOnWidescreen,
-	columnCountOnFullhd
+	columnCountOnFullhd,
+	categoryView = false
 }) => {
-	const item = products => (
-		<div>
-			{products.map(product => (
+	const items = products
+		? products.map(product => (
 				<Item
 					key={product.id}
 					product={product}
@@ -36,9 +36,30 @@ const ProductList = ({
 					columnCountOnWidescreen={columnCountOnWidescreen}
 					columnCountOnFullhd={columnCountOnFullhd}
 				/>
-			))}
-		</div>
-	);
+		  ))
+		: null;
+	if (categoryView)
+		return (
+			<Fragment>
+				<div
+					className={
+						className +
+						(loadingProducts ? ' loading' : '') +
+						(isCentered ? ' is-centered' : '')
+					}
+				>
+					{items}
+				</div>
+				<div className="load-more">
+					<LoadMore
+						loadMoreProducts={loadMoreProducts}
+						hasMore={hasMore}
+						loading={loadingMoreProducts}
+					/>
+				</div>
+			</Fragment>
+		);
+
 	const sliderSettings = {
 		dots: true,
 		infinite: true,
