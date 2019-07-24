@@ -1,83 +1,63 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
+import Select from 'react-select';
 
 class AttributeValue extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			checked: props.checked
+			initialData: '',
+			value: '',
+			defaultValue: []
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.checked !== this.props.checked) {
-			this.setState({ checked: nextProps.checked });
-		}
-	}
+	onChange = selected => {
+		const { name, setFilterAttribute, unsetFilterAttribute } = this.props;
+		const { checked } = this.state;
+		console.log(checked, selected);
 
-	onChange = event => {
-		const {
-			attributeName,
-			valueName,
-			setFilterAttribute,
-			unsetFilterAttribute
-		} = this.props;
-		const checked = event.target.checked;
-
-		this.setState({ checked: checked });
-
-		if (checked) {
-			setFilterAttribute(attributeName, valueName);
+		if (checked.length > selected.length) {
+			let difference = checked.filter(x => !selected.includes(x));
+			console.log(difference);
+			difference.map(item => unsetFilterAttribute(name, item.label));
 		} else {
-			unsetFilterAttribute(attributeName, valueName);
+			let difference = selected.filter(x => !checked.includes(x));
+			console.log(difference);
+			difference.map(item => setFilterAttribute(name, item.label));
 		}
 	};
-
+	static getDerivedStateFromProps = (nextProps, prevState) => {
+		const checked = [],
+			defaultValue = [];
+		const { data } = nextProps;
+		data.map(ele => {
+			if (ele.checked) checked.push({ label: ele.name, value: ele.name });
+			defaultValue.push({ label: ele.name, value: ele.name });
+		});
+		return { checked: checked, defaultValue: defaultValue };
+	};
 	render() {
-		const { valueName, count } = this.props;
-		const isDisabled = count === 0;
-		const classChecked = this.state.checked ? 'attribute-checked' : '';
-		const classDisabled = isDisabled ? 'attribute-disabled' : '';
-
+		const { name, data } = this.props;
+		const { checked, defaultValue } = this.state;
+		console.log(checked, defaultValue);
 		return (
-			<label className={classChecked + ' ' + classDisabled}>
-				<input
-					type="checkbox"
-					disabled={isDisabled}
+			<div>
+				<span>{name}</span>
+				<Select
+					defaultValue={checked}
+					isMulti
+					name={name}
+					options={defaultValue}
 					onChange={this.onChange}
-					checked={this.state.checked}
+					className="basic-multi-select"
+					classNamePrefix="select"
 				/>
-				{valueName}
-			</label>
+			</div>
 		);
 	}
 }
-
-const AttributeSet = ({
-	attribute,
-	setFilterAttribute,
-	unsetFilterAttribute
-}) => {
-	const values = attribute.values.map((value, index) => (
-		<AttributeValue
-			key={index}
-			attributeName={attribute.name}
-			valueName={value.name}
-			checked={value.checked}
-			count={value.count}
-			setFilterAttribute={setFilterAttribute}
-			unsetFilterAttribute={unsetFilterAttribute}
-		/>
-	));
-
-	return (
-		<div className="attribute">
-			<div className="attribute-title">{attribute.name}</div>
-			{values}
-		</div>
-	);
-};
 
 const AttributeFilter = ({
 	attributes,
@@ -85,9 +65,9 @@ const AttributeFilter = ({
 	unsetFilterAttribute
 }) => {
 	const attributeSets = attributes.map((attribute, index) => (
-		<AttributeSet
-			key={index}
-			attribute={attribute}
+		<AttributeValue
+			name={attribute.name}
+			data={attribute.values}
 			setFilterAttribute={setFilterAttribute}
 			unsetFilterAttribute={unsetFilterAttribute}
 		/>
