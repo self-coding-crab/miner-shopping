@@ -121,7 +121,8 @@
 
 .products {
   opacity: 1;
-  transition: opacity 200ms ease-in;
+	transition: opacity 200ms ease-in;
+	justify-content: center;
 }
 
 .products.loading {
