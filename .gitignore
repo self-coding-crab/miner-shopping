@@ -1,5 +1,6 @@
 .vscode
 node_modules
+config
 public/admin-assets/js/app-*
 public/admin-assets/js/vendor-*
 public/admin-assets/css/bundle-*
