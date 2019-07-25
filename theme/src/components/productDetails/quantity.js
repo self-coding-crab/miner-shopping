@@ -45,7 +45,6 @@ export default class Quantity extends React.PureComponent {
 
 		return (
 			<Fragment>
-				<div>{text.qty}</div>
 				<div className="product-quantity">
 					<a className="decrement" onClick={this.decrement} />
 					<input
