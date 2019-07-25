@@ -1,6 +1,49 @@
 .section-product-description {
-  background-color: #f5f5f5;
-  padding: 3rem 1.5rem;
+  background-color: white;
+	padding: 3rem 1.5rem;
+	.header {
+		font-size: 28px;
+		line-height: 28px;
+		color: #3a4044;
+		font-family: "Poppins";
+		font-weight: 600;
+		margin-bottom: 20px;
+	}
+	.columns {
+		margin-top: 20px;
+	}
+	.miner--info__card {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-gap: 20px;
+		color: #444;
+		width: 550px;
+		.card {
+			width: 264px;
+			height: 144px;
+			border-radius: 8px;
+			box-shadow: 0 0 9px rgba(0,0,0,0.16);
+			background-color: #ffffff;
+			padding: 5px;
+			.header {
+				font-size: 16px;
+				line-height: 28px;
+				color: #778898;
+				font-family: "Poppins";
+				font-weight: 600;
+				text-align: center;
+			}
+			.price {
+				font-size: 36px;
+				line-height: 28px;
+				color: #3d8ef6;
+				font-family: "Poppins";
+				font-weight: 600;
+				text-align: center;
+				margin-top: 40px
+			}
+		}
+	}
 }
 
 .product-attribute {
@@ -22,9 +65,12 @@
 
 .section-product .product-price {
   margin-bottom: 1.5rem;
-  font-size: 1.25rem;
   color: #363636;
-  font-weight: 500;
+	font-size: 38px;
+	line-height: 28px;
+	color: #3d8ef6;
+	font-family: "Poppins";
+	font-weight: 600;
 }
 
 .section-product .product-old-price {
@@ -44,9 +90,27 @@
   margin-bottom: 0.5rem;
 }
 
+.product-price-dec {
+	display: flex;
+	align-items: center;
+}
+
 .button-addtocart {
   margin: 1.5rem 0;
-  max-width: 280px;
+	max-width: 280px;
+	margin-left: 35px;
+	button {
+		width: 192px;
+		height: 40px;
+		border-radius: 20px;
+		background-color: #3d8ef6;
+		font-size: 16px;
+		line-height: 28px;
+		color: #ffffff;
+		font-family: "Poppins";
+		font-weight: 600;
+		text-align: center;
+	}
 }
 
 .discount-countdown {
