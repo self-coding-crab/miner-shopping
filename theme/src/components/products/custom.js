@@ -145,6 +145,7 @@ export default class CustomProducts extends React.Component {
 				columnCountOnFullhd={columnCountOnFullhd}
 				isCentered={isCentered}
 				className={className}
+				categoryView
 			/>
 		);
 	}
