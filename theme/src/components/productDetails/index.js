@@ -27,7 +27,17 @@ const Description = ({ description }) => (
 		dangerouslySetInnerHTML={{ __html: description }}
 	/>
 );
-
+const MinerInfoCard = ({ title, price }) => (
+	<div className="card">
+		<div className="header">{title}</div>
+		<div className="price">
+			{Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency: 'USD'
+			}).format(price)}
+		</div>
+	</div>
+);
 export default class ProductDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -177,17 +187,17 @@ export default class ProductDetails extends React.Component {
 				<MuiThemeProvider muiTheme={muiTheme}>
 					<section className="section section-product">
 						<div className="container">
+							<h1 className="title is-4 product-name">{product.name}</h1>
+							{themeSettings.show_product_breadcrumbs && (
+								<Breadcrumbs product={product} categories={categories} />
+							)}
 							<div className="columns">
 								<div className="column is-7">
-									{themeSettings.show_product_breadcrumbs && (
-										<Breadcrumbs product={product} categories={categories} />
-									)}
 									<Gallery images={product.images} />
 								</div>
 								<div className="column is-5">
 									<div className="content">
 										<Tags tags={product.tags} />
-										<h1 className="title is-4 product-name">{product.name}</h1>
 										<Price
 											product={product}
 											variant={selectedVariant}
@@ -204,64 +214,74 @@ export default class ProductDetails extends React.Component {
 											options={product.options}
 											onChange={this.onOptionChange}
 										/>
-										<Quantity
-											maxQuantity={maxQuantity}
-											onChange={this.setQuantity}
-										/>
-										<div className="button-addtocart">
-											<AddToCartButton
-												product={product}
-												variant={selectedVariant}
-												addCartItem={this.addToCart}
-												isAllOptionsSelected={isAllOptionsSelected}
+										<div className="product-price-dec">
+											<Quantity
+												maxQuantity={maxQuantity}
+												onChange={this.setQuantity}
 											/>
+											<div className="button-addtocart">
+												<AddToCartButton
+													product={product}
+													variant={selectedVariant}
+													addCartItem={this.addToCart}
+													isAllOptionsSelected={isAllOptionsSelected}
+												/>
+											</div>
 										</div>
 										<div className="additional-info">
 											<div className="filter-field">
-												<TextField
-													type="text"
-													fullWidth={true}
-													value={this.state.ecost}
-													onChange={e =>
-														this.handleParamChange('ecost', e.target.value)
-													}
-													floatingLabelText="Electricity Cost"
-												/>
-												<TextField
-													type="text"
-													fullWidth={true}
-													value={this.state.asic}
-													onChange={e =>
-														this.handleParamChange('asic', e.target.value)
-													}
-													floatingLabelText="ASIC Useful Life"
-												/>
+												<div>
+													<TextField
+														type="text"
+														value={this.state.ecost}
+														onChange={e =>
+															this.handleParamChange('ecost', e.target.value)
+														}
+														floatingLabelText="Electricity Cost"
+													/>
+												</div>
+												<div>
+													<TextField
+														type="text"
+														value={this.state.asic}
+														onChange={e =>
+															this.handleParamChange('asic', e.target.value)
+														}
+														floatingLabelText="ASIC Useful Life"
+													/>
+												</div>
 											</div>
 											<div className="result-field mt-4">
+												<br />
+												<br />
 												<strong>
 													{`Your Gross Income Per Day might be: ${new Intl.NumberFormat(
-														'us-US',
+														'en-US',
 														{ style: 'currency', currency: 'USD' }
 													).format(gross_income)}.`}{' '}
 													<br />
-													{`You could earn ${new Intl.NumberFormat('us-US', {
+													<br />
+													{`You could earn ${new Intl.NumberFormat('en-US', {
 														style: 'currency',
 														currency: 'USD'
 													}).format(
 														income_per_kwh
 													)} per kWh with this miner.`}{' '}
 													<br />
+													<br />
 													{`If you bought this miner for ${new Intl.NumberFormat(
-														'us-US',
+														'en-US',
 														{ style: 'currency', currency: 'USD' }
 													).format(
 														hardware_cost
 													)}, and run it for ${asic} months, it will be as though the miner cost you ${new Intl.NumberFormat(
-														'us-US',
+														'en-US',
 														{ style: 'currency', currency: 'USD' }
 													).format(ecost)} per kwh that it runs.`}
+													<br />
+													<br />
 													{`The Operation Profit for this miner might be around ${new Intl.NumberFormat(
-														'us-US',
+														'en-US',
 														{ style: 'currency', currency: 'USD' }
 													).format(
 														operation_profit
@@ -278,11 +298,30 @@ export default class ProductDetails extends React.Component {
 					<section className="section section-product-description">
 						<div className="container">
 							<div className="content">
+								<span className="header">Miner Info</span>
 								<div className="columns">
-									<div className="column is-7">
+									<div className="column is-6">
 										<Description description={product.description} />
+										<div className="miner--info__card">
+											<MinerInfoCard
+												title="Gross Income Per Day (BTC)"
+												price={gross_income}
+											/>
+											<MinerInfoCard
+												title="Income/kWh (BTC)"
+												price={income_per_kwh}
+											/>
+											<MinerInfoCard
+												title="Hardware Cost/kWh (BTC)"
+												price={hardware_cost}
+											/>
+											<MinerInfoCard
+												title="Operation Profit/kWh (BTC)"
+												price={operation_profit}
+											/>
+										</div>
 									</div>
-									<div className="column is-5">
+									<div className="column is-6">
 										<Attributes attributes={product.attributes} />
 									</div>
 								</div>
