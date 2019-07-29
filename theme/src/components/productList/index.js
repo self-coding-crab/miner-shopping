@@ -50,24 +50,17 @@ const ProductList = ({
 				>
 					{items}
 				</div>
-				<div className="load-more">
-					<LoadMore
-						loadMoreProducts={loadMoreProducts}
-						hasMore={hasMore}
-						loading={loadingMoreProducts}
-					/>
-				</div>
 			</Fragment>
 		);
 
 	const sliderSettings = {
-		dots: true,
 		infinite: true,
 		speed: 500,
 		slidesToShow: 4,
 		slidesToScroll: 1,
 		draggable: false,
-		dots: false
+		dots: false,
+		autoplay: true
 	};
 	return (
 		<div className="products">

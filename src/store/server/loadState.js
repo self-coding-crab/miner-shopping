@@ -15,7 +15,7 @@ import {
 } from '../shared/pageTypes';
 
 const PRODUCT_FIELDS =
-	'path,id,name,category_id,category_ids,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position';
+	'path,id,name,category_id,category_ids,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position,brand,algorithm';
 const CATEGORIES_FIELDS =
 	'image,name,description,meta_description,meta_title,sort,parent_id,position,slug,id';
 

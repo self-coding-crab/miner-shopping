@@ -48,6 +48,14 @@ const IndexContainer = props => {
 						settings={settings}
 						addCartItem={addCartItem}
 					/>
+					<div className="title is-4">{themeSettings.home_products_title2}</div>
+					<CustomProducts
+						sku={themeSettings.home_products_sku}
+						sort={themeSettings.home_products_sort2}
+						limit={themeSettings.home_products_limit}
+						settings={settings}
+						addCartItem={addCartItem}
+					/>
 					<div className="about-us">
 						<div className="header">About Us</div>
 						<p className="description">

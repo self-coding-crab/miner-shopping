@@ -58,9 +58,11 @@
         }
     ],
     "search_placeholder": "",
-    "home_products_limit": 8,
-    "home_products_title": "BEST SELLERS",
-    "home_products_sort": "-date_updated",
+    "home_products_limit": 4,
+    "home_products_title": "Shop by Algorithm Type",
+    "home_products_title2": "Shop by Manufacturer",
+    "home_products_sort": "algorithm",
+    "home_products_sort2": "brand",
     "home_slider": [
         {
             "path": "/page-1",

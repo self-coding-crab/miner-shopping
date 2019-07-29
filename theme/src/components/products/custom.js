@@ -31,7 +31,8 @@ export default class CustomProducts extends React.Component {
 		columnCountOnTablet: PropTypes.number,
 		columnCountOnDesktop: PropTypes.number,
 		columnCountOnWidescreen: PropTypes.number,
-		columnCountOnFullhd: PropTypes.number
+		columnCountOnFullhd: PropTypes.number,
+		categoryView: PropTypes.bool
 	};
 
 	static defaultProps = {
@@ -50,7 +51,8 @@ export default class CustomProducts extends React.Component {
 		columnCountOnTablet: 3,
 		columnCountOnDesktop: 4,
 		columnCountOnWidescreen: 4,
-		columnCountOnFullhd: 4
+		columnCountOnFullhd: 4,
+		categoryView: false
 	};
 
 	state = {
@@ -93,8 +95,8 @@ export default class CustomProducts extends React.Component {
 			price_to,
 			sort,
 			fields:
-				'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags',
-			limit: limit || 4,
+				'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,algorithm,brand',
+			limit: 12,
 			offset: 0
 		};
 
@@ -126,11 +128,11 @@ export default class CustomProducts extends React.Component {
 			columnCountOnTablet,
 			columnCountOnDesktop,
 			columnCountOnWidescreen,
-			columnCountOnFullhd
+			columnCountOnFullhd,
+			categoryView
 		} = this.props;
 
 		const { products } = this.state;
-
 		return (
 			<ProductList
 				products={products}
@@ -145,7 +147,7 @@ export default class CustomProducts extends React.Component {
 				columnCountOnFullhd={columnCountOnFullhd}
 				isCentered={isCentered}
 				className={className}
-				categoryView
+				categoryView={categoryView}
 			/>
 		);
 	}

@@ -96,6 +96,7 @@ export default class ViewedProducts extends React.Component {
 							addCartItem={addCartItem}
 							limit={limit}
 							isCentered
+							categoryView={true}
 						/>
 					</div>
 				</section>

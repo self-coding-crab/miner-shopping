@@ -92,7 +92,6 @@ class ProductsService {
 			),
 			SettingsService.getSettings()
 		]);
-
 		const domain = generalSettings.domain || '';
 		const ids = this.getArrayFromCSV(parse.getString(params.ids));
 		const sku = this.getArrayFromCSV(parse.getString(params.sku));
@@ -370,6 +369,8 @@ class ProductsService {
 			stock_preorder: 1,
 			stock_backorder: 1,
 			stock_quantity: 1,
+			algorithm: 1,
+			brand: 1,
 			on_sale: {
 				$and: [
 					{
@@ -717,6 +718,8 @@ class ProductsService {
 
 		product.name = parse.getString(data.name);
 		product.description = parse.getString(data.description);
+		product.algorithm = parse.getString(data.algorithm);
+		product.brand = parse.getString(data.brand);
 		product.meta_description = parse.getString(data.meta_description);
 		product.meta_title = parse.getString(data.meta_title);
 		product.tags = parse.getArrayIfValid(data.tags) || [];

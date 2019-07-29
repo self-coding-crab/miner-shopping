@@ -32,7 +32,6 @@ const runCronJob = async () => {
 		'https://cryptomining.tools/compare-mining-hardware/xhr/all_miners.json'
 	).then(async ({ data }) => {
 		const categories = await ProductCategories.getCategories();
-
 		data.map(async product => {
 			const attributes = [];
 			let matchedProduct = {};
@@ -67,6 +66,8 @@ const runCronJob = async () => {
 					stock_quantity: 1,
 					regular_price: 1000,
 					category_id: categories[0].id,
+					algorithm: product['algo'],
+					brand: product['brand'],
 					attributes
 				};
 				ProductService.addProduct(body).then(res => {
