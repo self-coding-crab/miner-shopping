@@ -71,12 +71,16 @@ export default class ProductDetails extends React.Component {
 		console.log(product);
 		if (!_.isEmpty(product) && product.algorithm == 'SHA-256') {
 			const value = product.attributes.filter(item => item.name === 'id');
-			this.setState({
-				machine_id: value[0].value,
-				price: product.regular_price
-			});
+			console.log(value[0].value);
+			this.setState(
+				{
+					machine_id: value[0].value,
+					price: product.regular_price
+				},
+				() => this.getAdditionalInfo(this.state.machine_id)
+			);
 			// this.getAdditionalInfo(value[0].value);
-			this.getAdditionalInfo(this.state.machine_id); //example calling redux action
+			// this.getAdditionalInfo(this.state.machine_id); //example calling redux action
 		}
 	}
 
