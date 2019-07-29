@@ -17,6 +17,7 @@ import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
 import Axios from 'axios';
+import _ from 'lodash';
 const muiTheme = getMuiTheme({
 	fontFamily: 'Roboto, sans-serif',
 	appBar: {}
@@ -68,29 +69,25 @@ export default class ProductDetails extends React.Component {
 	componentDidMount() {
 		const { product } = this.props;
 		console.log(product);
-		if (product.length > 0) {
+		if (!_.isEmpty(product) && product.algorithm == 'SHA-256') {
 			const value = product.attributes.filter(item => item.name === 'id');
-			console.log(product);
 			this.setState({
 				machine_id: value[0].value,
 				price: product.regular_price
 			});
 			// this.getAdditionalInfo(value[0].value);
-		}
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.machine_id !== this.state.machine_id) {
 			this.getAdditionalInfo(this.state.machine_id); //example calling redux action
 		}
 	}
 
 	getAdditionalInfo = () => {
 		const { ecost, asic, price, machine_id } = this.state;
+		console.log(ecost, asic, price, machine_id);
 		Axios.get(
 			`https://cryptomining.tools/compare-mining-hardware/xhr/miner_calc.json?id=${machine_id}&ecost=${ecost}&asic=${asic}&price=${price}`
 		).then(res => {
 			const { data } = res;
+			console.log(res);
 			if (data.success) {
 				this.setState({
 					gross_income: data.data.gross_income,
