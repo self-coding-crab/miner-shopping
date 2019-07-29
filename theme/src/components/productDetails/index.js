@@ -68,10 +68,8 @@ export default class ProductDetails extends React.Component {
 
 	componentDidMount() {
 		const { product } = this.props;
-		console.log(product);
 		if (!_.isEmpty(product) && product.algorithm == 'SHA-256') {
 			const value = product.attributes.filter(item => item.name === 'id');
-			console.log(value[0].value);
 			this.setState(
 				{
 					machine_id: value[0].value,
@@ -252,43 +250,45 @@ export default class ProductDetails extends React.Component {
 													/>
 												</div>
 											</div>
-											<div className="result-field mt-4">
-												<br />
-												<br />
-												<strong>
-													{`Your Gross Income Per Day might be: ${new Intl.NumberFormat(
-														'en-US',
-														{ style: 'currency', currency: 'USD' }
-													).format(gross_income)}.`}{' '}
+											{product.algorithm == 'SHA-256' && (
+												<div className="result-field mt-4">
 													<br />
 													<br />
-													{`You could earn ${new Intl.NumberFormat('en-US', {
-														style: 'currency',
-														currency: 'USD'
-													}).format(
-														income_per_kwh
-													)} per kWh with this miner.`}{' '}
-													<br />
-													<br />
-													{`If you bought this miner for ${new Intl.NumberFormat(
-														'en-US',
-														{ style: 'currency', currency: 'USD' }
-													).format(
-														hardware_cost
-													)}, and run it for ${asic} months, it will be as though the miner cost you ${new Intl.NumberFormat(
-														'en-US',
-														{ style: 'currency', currency: 'USD' }
-													).format(ecost)} per kwh that it runs.`}
-													<br />
-													<br />
-													{`The Operation Profit for this miner might be around ${new Intl.NumberFormat(
-														'en-US',
-														{ style: 'currency', currency: 'USD' }
-													).format(
-														operation_profit
-													)} for every kWh that the miner is running.`}
-												</strong>
-											</div>
+													<strong>
+														{`Your Gross Income Per Day might be: ${new Intl.NumberFormat(
+															'en-US',
+															{ style: 'currency', currency: 'USD' }
+														).format(gross_income)}.`}{' '}
+														<br />
+														<br />
+														{`You could earn ${new Intl.NumberFormat('en-US', {
+															style: 'currency',
+															currency: 'USD'
+														}).format(
+															income_per_kwh
+														)} per kWh with this miner.`}{' '}
+														<br />
+														<br />
+														{`If you bought this miner for ${new Intl.NumberFormat(
+															'en-US',
+															{ style: 'currency', currency: 'USD' }
+														).format(
+															hardware_cost
+														)}, and run it for ${asic} months, it will be as though the miner cost you ${new Intl.NumberFormat(
+															'en-US',
+															{ style: 'currency', currency: 'USD' }
+														).format(ecost)} per kwh that it runs.`}
+														<br />
+														<br />
+														{`The Operation Profit for this miner might be around ${new Intl.NumberFormat(
+															'en-US',
+															{ style: 'currency', currency: 'USD' }
+														).format(
+															operation_profit
+														)} for every kWh that the miner is running.`}
+													</strong>
+												</div>
+											)}
 										</div>
 									</div>
 								</div>
